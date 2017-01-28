@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Jobbr.ArtefactStorage.FileSystem</id>
+    <version>$version$</version>
+    <authors>Jobbr</authors>
+    <owners>Jobbr</owners>
+    <projectUrl>http://github.com/jobbrIO/jobbr-artefactstorage-filesystem</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Jobbr is a .NET JobServer</description>
+    <copyright>Copyright 2016</copyright>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="../tools/Jobbr.ArtefactStorage.FileSystem.dll" target="lib\net45"/>
+    <file src="../tools/Jobbr.ArtefactStorage.FileSystem.pdb" target="lib\net45"/>
+  </files>
+</package>
