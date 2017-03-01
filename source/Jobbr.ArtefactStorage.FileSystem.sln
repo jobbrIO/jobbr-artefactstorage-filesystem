@@ -5,9 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobbr.ArtefactStorage.FileSystem", "Jobbr.ArtefactStorage.FileSystem\Jobbr.ArtefactStorage.FileSystem.csproj", "{A0B35BE9-E134-4C81-9976-AC08850218D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobbr.ComponentModel.ArtefactStorage", "submodules\jobbr-cm-artefactstorage\source\Jobbr.ComponentModel.ArtefactStorage\Jobbr.ComponentModel.ArtefactStorage.csproj", "{183F7730-D805-405C-92B4-84BB151C2371}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{5B45D423-3F28-4D21-86A1-00F66D71A109}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CDD62573-7BA1-44C8-9EFC-7B68D886CA5B}"
+	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\GitVersion.yml = ..\GitVersion.yml
+		..\internalize_exclude.txt = ..\internalize_exclude.txt
+		Jobbr.ArtefactStorage.FileSystem.nuspec = Jobbr.ArtefactStorage.FileSystem.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,15 +23,8 @@ Global
 		{A0B35BE9-E134-4C81-9976-AC08850218D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B35BE9-E134-4C81-9976-AC08850218D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0B35BE9-E134-4C81-9976-AC08850218D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{183F7730-D805-405C-92B4-84BB151C2371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{183F7730-D805-405C-92B4-84BB151C2371}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{183F7730-D805-405C-92B4-84BB151C2371}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{183F7730-D805-405C-92B4-84BB151C2371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{183F7730-D805-405C-92B4-84BB151C2371} = {5B45D423-3F28-4D21-86A1-00F66D71A109}
 	EndGlobalSection
 EndGlobal

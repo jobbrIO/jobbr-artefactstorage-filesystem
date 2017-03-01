@@ -51,11 +51,11 @@ namespace Jobbr.ArtefactStorage.FileSystem
             return null;
         }
 
-        public List<FileInfo> GetFiles(string container)
+        public List<JobbrArtefact> GetArtefacts(string container)
         {
             var dir = Directory.CreateDirectory(Path.Combine(this.dataDirectory, container));
 
-            return dir.GetFiles().ToList();
+            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name, Data = s.Open(FileMode.Open, FileAccess.Read, FileShare.Read) }).ToList();
         }
     }
 }

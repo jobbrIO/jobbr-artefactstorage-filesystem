@@ -1,4 +1,0 @@
-[submodule "source/submodules/jobbr-cm-artefactstorage"]
-	path = source/submodules/jobbr-cm-artefactstorage
-	url = https://github.com/jobbrIO/jobbr-cm-artefactstorage
-	branch = develop
