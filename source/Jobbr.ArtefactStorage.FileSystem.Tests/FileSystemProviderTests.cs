@@ -25,7 +25,10 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestCleanup]
         public void CleanupAfterEachTest()
         {
+            if (Directory.Exists("container"))
+            {
             Directory.Delete("container", true);
+        }
         }
 
         [TestMethod]
