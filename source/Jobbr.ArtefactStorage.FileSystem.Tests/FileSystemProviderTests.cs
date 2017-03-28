@@ -114,5 +114,19 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             Assert.AreEqual(0, itemsWithoutFileSizes.Count, "The following files did not supply their Size: " + string.Join(", ", itemsWithoutFileSizes.Select(a => a.FileName)));
         }
 
+        [TestMethod]
+        public void ExistingContainerWithFiles_GetArtefacts_AllHaveMimeType()
+        {
+            GivenAContainerWithFourArbitraryFiles("container");
+            var provider = GivenArtefactStorageProviderInCurrentPath();
+
+            var artefacts = provider.GetArtefacts("container");
+
+            var itemsWithoutFileSizes = artefacts.Where(a => string.IsNullOrWhiteSpace(a.MimeType)).ToList();
+
+            Assert.IsNotNull(artefacts);
+            Assert.AreEqual(0, itemsWithoutFileSizes.Count, "The following files did not supply their MimeType: " + string.Join(", ", itemsWithoutFileSizes.Select(a => a.FileName)));
+        }
+
     }
 }
