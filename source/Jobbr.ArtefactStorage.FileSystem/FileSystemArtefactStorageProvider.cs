@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Jobbr.ComponentModel.ArtefactStorage;
 using Jobbr.ComponentModel.ArtefactStorage.Model;
+using MimeTypes;
 
 namespace Jobbr.ArtefactStorage.FileSystem
 {
@@ -51,7 +52,7 @@ namespace Jobbr.ArtefactStorage.FileSystem
         {
             var dir = Directory.CreateDirectory(Path.Combine(this.config.DataDirectory, container));
 
-            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name, Size = s.Length}).ToList();
+            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name, Size = s.Length, MimeType = MimeTypeMap.GetMimeType(s.Extension)}).ToList();
         }
     }
 }

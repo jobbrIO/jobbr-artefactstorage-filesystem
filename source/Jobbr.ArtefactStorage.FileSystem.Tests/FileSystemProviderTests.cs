@@ -27,8 +27,8 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         {
             if (Directory.Exists("container"))
             {
-            Directory.Delete("container", true);
-        }
+                Directory.Delete("container", true);
+            }
         }
 
         [TestMethod]
@@ -128,5 +128,43 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             Assert.AreEqual(0, itemsWithoutFileSizes.Count, "The following files did not supply their MimeType: " + string.Join(", ", itemsWithoutFileSizes.Select(a => a.FileName)));
         }
 
+        [TestMethod]
+        public void ExistingContainerWithFiles_GetStream_StreamContainsData()
+        {
+            GivenAContainerWithFourArbitraryFiles("container");
+            var provider = GivenArtefactStorageProviderInCurrentPath();
+
+            var artefacts = provider.GetArtefacts("container");
+
+            foreach (var jobbrArtefact in artefacts)
+            {
+                using (var stream = provider.Load("container", jobbrArtefact.FileName))
+                {
+                    Assert.IsNotNull(stream);
+                    Assert.IsTrue(stream.Length > 0);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void ExistingContainerWithFiles_GetStreamOfNonExistentFile_ReturnsNull()
+        {
+            GivenAContainerWithFourArbitraryFiles("container");
+            var provider = GivenArtefactStorageProviderInCurrentPath();
+
+            var artefacts = provider.GetArtefacts("container");
+
+            var stream = provider.Load("container", "blupp.pdf");
+            Assert.IsNull(stream);
+        }
+
+        [TestMethod]
+        public void NoContainer_GetStream_ReturnsNull()
+        {
+            var provider = GivenArtefactStorageProviderInCurrentPath();
+
+            var stream = provider.Load("blabla", "blupp.pdf");
+            Assert.IsNull(stream);
+        }
     }
 }
