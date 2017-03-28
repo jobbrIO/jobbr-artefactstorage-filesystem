@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Jobbr.ArtefactStorage.FileSystem
+﻿namespace Jobbr.ArtefactStorage.FileSystem
 {
     public class FileSystemArtefactStorageConfiguration
     {
