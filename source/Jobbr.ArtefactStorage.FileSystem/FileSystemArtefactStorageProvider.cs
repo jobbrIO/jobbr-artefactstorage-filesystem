@@ -51,7 +51,7 @@ namespace Jobbr.ArtefactStorage.FileSystem
         {
             var dir = Directory.CreateDirectory(Path.Combine(this.config.DataDirectory, container));
 
-            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name }).ToList();
+            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name, Size = s.Length}).ToList();
         }
     }
 }
