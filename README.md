@@ -37,7 +37,7 @@ server.Start();
 > **Notice**: UNC-Paths are generally possible if they are reliable but have not been tested yet. If you're seeking for a high available implementation, the [RavenFS extension](https://github.com/jobbrIO/jobbr-artefactstorage-ravenfs) might be the better candidate for you. 
 
 # License
-This software is licenced under GPLv3. See [LICENSE](LICENSE), please see the related licences of 3rd party libraries below.
+This software is licenced under GPLv3. See [LICENSE](LICENSE), and the related licences of 3rd party libraries below.
 
 # Acknowledgements
 This extension is built using the following great open source projects
