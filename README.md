@@ -1,4 +1,4 @@
-# FileSystem Storage Provider [![Develop build status][artefact-fs-badge-build-develop]][artefact-fs-link-build]
+# Jobbr FileSystem Storage Provider [![Develop build status][artefact-fs-badge-build-develop]][artefact-fs-link-build]
 
 This is a storage provider implementation for the [Jobbr .NET JobServer](http://www.jobbr.io) to store artefacts related from job runs on the filesystem in a folder of your choice. 
 The Jobbr main repository can be found on [JobbrIO/jobbr-server](https://github.com/jobbrIO).
