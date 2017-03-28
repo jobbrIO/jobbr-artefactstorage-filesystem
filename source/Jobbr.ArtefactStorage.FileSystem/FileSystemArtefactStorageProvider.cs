@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Jobbr.ComponentModel.ArtefactStorage;
+using Jobbr.ComponentModel.ArtefactStorage.Model;
 
 namespace Jobbr.ArtefactStorage.FileSystem
 {
@@ -55,7 +56,7 @@ namespace Jobbr.ArtefactStorage.FileSystem
         {
             var dir = Directory.CreateDirectory(Path.Combine(this.dataDirectory, container));
 
-            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name, Data = s.Open(FileMode.Open, FileAccess.Read, FileShare.Read) }).ToList();
+            return dir.GetFiles().Select(s => new JobbrArtefact { FileName = s.Name }).ToList();
         }
     }
 }
