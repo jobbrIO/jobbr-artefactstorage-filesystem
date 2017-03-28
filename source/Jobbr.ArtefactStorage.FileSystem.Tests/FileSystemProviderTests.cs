@@ -60,6 +60,18 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         }
 
         [TestMethod]
+        public void SaveFile_WithExistingFile_FileIsOverwritten()
+        {
+            var provider = GivenArtefactStorageProviderInCurrentPath();
+
+            provider.Save("container", "test123.txt", new MemoryStream(Encoding.UTF8.GetBytes("HelloWorld")));
+            provider.Save("container", "test123.txt", new MemoryStream(Encoding.UTF8.GetBytes("NewValue")));
+
+            var fileContent = File.ReadAllText("container\\test123.txt", Encoding.UTF8);
+            Assert.AreEqual("NewValue", fileContent);
+        }
+
+        [TestMethod]
         public void ExistingContainerWithFiles_GetArtefacts_ReturnsList()
         {
             GivenAContainerWithFourArbitraryFiles("container");
