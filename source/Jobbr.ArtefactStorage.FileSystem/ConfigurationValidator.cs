@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using Jobbr.ComponentModel.Registration;
 
 namespace Jobbr.ArtefactStorage.FileSystem
@@ -10,12 +13,46 @@ namespace Jobbr.ArtefactStorage.FileSystem
         public bool Validate(object configuration)
         {
             var config = configuration as FileSystemArtefactStorageConfiguration;
-            if (config == null)
+
+            if (string.IsNullOrWhiteSpace(config?.DataDirectory))
             {
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(config.DataDirectory))
+            if (!IsValidPath(config.DataDirectory))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsValidPath(string path)
+        {
+            // Checking of UNC-Paths can take too much time, we need to skip here
+            // See: http://stackoverflow.com/questions/5152647/how-to-quickly-check-if-unc-path-is-available
+            if (path.StartsWith(@"\\"))
+            {
+                return true;
+            }
+
+            FileInfo fi = null;
+            try
+            {
+                fi = new FileInfo(path);
+            }
+            catch (ArgumentException) { }
+            catch (PathTooLongException) { }
+            catch (NotSupportedException) { }
+
+            if (ReferenceEquals(fi, null))
+            {
+                return false;
+            }
+
+            // Check for drive
+            string pathRoot = Path.GetPathRoot(path);
+            if (!Directory.GetLogicalDrives().Contains(pathRoot))
             {
                 return false;
             }
