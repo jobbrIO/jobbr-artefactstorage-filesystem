@@ -74,6 +74,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FileSystemProviderTests.cs" />
+    <Compile Include="PackagingTests.cs" />
     <Compile Include="ProviderRegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +85,10 @@
     <ProjectReference Include="..\Jobbr.ArtefactStorage.FileSystem\Jobbr.ArtefactStorage.FileSystem.csproj">
       <Project>{a0b35be9-e134-4c81-9976-ac08850218d1}</Project>
       <Name>Jobbr.ArtefactStorage.FileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\submodules\devsupport\src\Jobbr.DevSupport.ReferencedVersionAsserter\Jobbr.DevSupport.ReferencedVersionAsserter.csproj">
+      <Project>{D7C78DBD-D440-4D0C-B9A9-AD8B7473364A}</Project>
+      <Name>Jobbr.DevSupport.ReferencedVersionAsserter</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
