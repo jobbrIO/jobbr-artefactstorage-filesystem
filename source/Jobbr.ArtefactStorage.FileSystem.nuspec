@@ -11,8 +11,8 @@
     <description>Stores Jobbr Artefacts on a File System.</description>
     <copyright>Copyright 2017</copyright>
     <dependencies>
-      <dependency id="Jobbr.ComponentModel.Registration" version="[1.0.0-rc1]" />
-      <dependency id="Jobbr.ComponentModel.ArtefactStorage" version="[1.0.0-rc4]" />
+      <dependency id="Jobbr.ComponentModel.Registration" version="[1.0.0]" />
+      <dependency id="Jobbr.ComponentModel.ArtefactStorage" version="[1.0.0]" />
     </dependencies>
   </metadata>
   <files>
