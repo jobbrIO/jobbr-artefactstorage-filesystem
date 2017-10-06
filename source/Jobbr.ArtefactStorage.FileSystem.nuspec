@@ -16,7 +16,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="../ilmerged/Jobbr.ArtefactStorage.FileSystem.dll" target="lib\net45"/>
-    <file src="../ilmerged/Jobbr.ArtefactStorage.FileSystem.pdb" target="lib\net45"/>
+    <file src="../ilmerged/Jobbr.ArtefactStorage.FileSystem.dll" target="lib\net462"/>
+    <file src="../ilmerged/Jobbr.ArtefactStorage.FileSystem.pdb" target="lib\net462"/>
   </files>
 </package>
