@@ -25,16 +25,17 @@ build:
   project: source/Jobbr.ArtefactStorage.FileSystem.sln
 
 after_build:
-  - cmd: nuget install ILMerge -ExcludeVersion
-  - cmd: mkdir ilmerged
-  - cmd: ILMerge\tools\ILMerge.exe /out:ilmerged/Jobbr.ArtefactStorage.FileSystem.dll source/Jobbr.ArtefactStorage.FileSystem/bin/Release/*.dll /target:library /targetplatform:v4,C:\Windows\Microsoft.NET\Framework64\v4.0.30319 /wildcards /internalize:internalize_exclude.txt 
   - cmd: nuget pack source\Jobbr.ArtefactStorage.FileSystem.nuspec -version "%GitVersion_SemVer%" -prop "target=%CONFIGURATION%"
   - cmd: appveyor PushArtifact "Jobbr.ArtefactStorage.FileSystem.%GitVersion_SemVer%.nupkg"
+
+test:
+  assemblies:
+    - '**\bin\Release\Jobbr.ArtefactStorage.FileSystem.Tests.dll'
 
 deploy:
 - provider: NuGet
   server: https://nuget.org
   api_key:
-    secure: j72cUd21tWzX9uqbVmqha+x5i83cBkg20Q10MXgT25T7vtrCEdygmdePZbXG25C2
+    secure: Ompe3bFsh5jBqgp8qFAIkD8D6H4ddqj1kUlyONQFhL5O7Cfuk1LesnyDb4TU63dd
   on:
     appveyor_repo_tag: true
