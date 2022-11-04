@@ -21,6 +21,6 @@
   <files>
     <file src="Jobbr.ArtefactStorage.FileSystem/bin/Release/net462/Jobbr.ArtefactStorage.FileSystem.dll" target="lib\net462"/>
     <file src="Jobbr.ArtefactStorage.FileSystem/bin/Release/net462/Jobbr.ArtefactStorage.FileSystem.pdb" target="lib\net462"/>
-    <file src="icon.png" target="images/" />
+    <file src="icon.png" target="images/"/>
   </files>
 </package>
