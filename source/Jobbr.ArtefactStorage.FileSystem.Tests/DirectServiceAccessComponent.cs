@@ -3,30 +3,27 @@ using Jobbr.ComponentModel.Registration;
 
 namespace Jobbr.ArtefactStorage.FileSystem.Tests
 {
-    public partial class ProviderRegistrationTests
+    public class DirectServiceAccessComponent : IJobbrComponent
     {
-        public class DirectServiceAccessComponent : IJobbrComponent
+        public static DirectServiceAccessComponent Instance;
+        public IArtefactsStorageProvider ArtefactStorageProvider { get; }
+
+        public DirectServiceAccessComponent(IArtefactsStorageProvider artefactsStorageProvider)
         {
-            public static DirectServiceAccessComponent Instance;
-            public IArtefactsStorageProvider ArtefactStorageProvider { get; }
+            Instance = this;
+            ArtefactStorageProvider = artefactsStorageProvider;
+        }
 
-            public DirectServiceAccessComponent(IArtefactsStorageProvider artefactsStorageProvider)
-            {
-                Instance = this;
-                ArtefactStorageProvider = artefactsStorageProvider;
-            }
+        public void Dispose()
+        {
+        }
 
-            public void Dispose()
-            {
-            }
+        public void Start()
+        {
+        }
 
-            public void Start()
-            {
-            }
-
-            public void Stop()
-            {
-            }
+        public void Stop()
+        {
         }
     }
 }

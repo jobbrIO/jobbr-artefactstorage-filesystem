@@ -10,7 +10,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 {
     [TestClass]
     [Ignore("Jobbr.Server has to be updated to .NET 6 first.")]
-    public partial class ProviderRegistrationTests
+    public class ProviderRegistrationTests
     {
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_CanBeStarted()
