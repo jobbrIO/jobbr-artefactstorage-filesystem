@@ -1,16 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Jobbr.ComponentModel.ArtefactStorage;
-using Jobbr.ComponentModel.JobStorage;
-using Jobbr.ComponentModel.Registration;
+﻿using Jobbr.ComponentModel.Registration;
 using Jobbr.Server;
 using Jobbr.Server.Builder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace Jobbr.ArtefactStorage.FileSystem.Tests
 {
     [TestClass]
+    [Ignore("Jobbr.Server has to be updated to .NET 6 first.")]
     public class ProviderRegistrationTests
     {
         [TestMethod]
@@ -47,8 +46,8 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             {
                 server.Start();
 
-                Assert.IsNotNull(DirectServiceAccessComponent.Instance.artefactStorageProvider);
-                Assert.AreEqual(typeof(FileSystemArtefactsStorageProvider), DirectServiceAccessComponent.Instance.artefactStorageProvider.GetType());
+                Assert.IsNotNull(DirectServiceAccessComponent.Instance.ArtefactStorageProvider);
+                Assert.AreEqual(typeof(FileSystemArtefactsStorageProvider), DirectServiceAccessComponent.Instance.ArtefactStorageProvider.GetType());
             }
         }
 
@@ -144,23 +143,5 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
                 server.Start();
             }
         }
-    }
-
-    public class DirectServiceAccessComponent : IJobbrComponent
-    {
-        public static DirectServiceAccessComponent Instance;
-        public readonly IArtefactsStorageProvider artefactStorageProvider;
-
-        public DirectServiceAccessComponent(IArtefactsStorageProvider artefactsStorageProvider)
-        {
-            Instance = this;
-            this.artefactStorageProvider = artefactsStorageProvider;
-        }
-
-        public void Dispose() { }
-
-        public void Start() { }
-
-        public void Stop() { }
     }
 }

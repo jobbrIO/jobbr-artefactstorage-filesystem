@@ -10,7 +10,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
     {
         private static FileSystemArtefactsStorageProvider GivenArtefactStorageProviderInCurrentPath()
         {
-            return new FileSystemArtefactsStorageProvider(new FileSystemArtefactStorageConfiguration() { DataDirectory = Directory.GetCurrentDirectory() });
+            return new FileSystemArtefactsStorageProvider(new() { DataDirectory = Directory.GetCurrentDirectory() });
         }
 
         private static void GivenAContainerWithFourArbitraryFiles(string container)
@@ -152,7 +152,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             GivenAContainerWithFourArbitraryFiles("container");
             var provider = GivenArtefactStorageProviderInCurrentPath();
 
-            var artefacts = provider.GetArtefacts("container");
+            provider.GetArtefacts("container");
 
             var stream = provider.Load("container", "blupp.pdf");
             Assert.IsNull(stream);
