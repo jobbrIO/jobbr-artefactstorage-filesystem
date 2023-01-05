@@ -1,6 +1,7 @@
 ﻿using Jobbr.ComponentModel.Registration;
 using Jobbr.Server;
 using Jobbr.Server.Builder;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -9,13 +10,12 @@ using System.Linq;
 namespace Jobbr.ArtefactStorage.FileSystem.Tests
 {
     [TestClass]
-    [Ignore("Jobbr.Server has to be updated to .NET 6 first.")]
     public class ProviderRegistrationTests
     {
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_CanBeStarted()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -33,14 +33,14 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_StorageProviderHasCorrectType()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             builder.AddFileSystemArtefactStorage(config =>
             {
                 config.DataDirectory = Directory.GetCurrentDirectory();
             });
 
-            builder.Register<IJobbrComponent>(typeof(DirectServiceAccessComponent));
+            builder.RegisterForCollection<IJobbrComponent>(typeof(DirectServiceAccessComponent));
 
             using (var server = builder.Create())
             {
@@ -55,7 +55,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithEmptyDataDirectoy_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -72,7 +72,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidDrive_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
@@ -80,7 +80,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 
             builder.AddFileSystemArtefactStorage(config =>
             {
-                config.DataDirectory = invalidDrives.First().ToString() + ":\\test";
+                config.DataDirectory = invalidDrives.First() + ":\\test";
             });
 
             using (var server = builder.Create())
@@ -93,7 +93,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -109,7 +109,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Configuration_WithPossibleUncPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -127,7 +127,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInaccessablePath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(new NullLoggerFactory());
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
@@ -135,7 +135,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 
             builder.AddFileSystemArtefactStorage(config =>
             {
-                config.DataDirectory = invalidDrives.First().ToString() + ":\\test";
+                config.DataDirectory = invalidDrives.First() + ":\\test";
             });
 
             using (var server = builder.Create())
