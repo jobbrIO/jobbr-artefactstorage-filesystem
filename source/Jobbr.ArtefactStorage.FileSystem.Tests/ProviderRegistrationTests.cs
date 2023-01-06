@@ -15,7 +15,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_CanBeStarted()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -33,7 +33,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_StorageProviderHasCorrectType()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -55,7 +55,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithEmptyDataDirectoy_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -72,7 +72,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidDrive_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
@@ -93,7 +93,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -109,7 +109,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Configuration_WithPossibleUncPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -127,7 +127,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInaccessablePath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder(new NullLoggerFactory());
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
