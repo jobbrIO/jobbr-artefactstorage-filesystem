@@ -16,10 +16,10 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         private static void GivenAContainerWithFourArbitraryFiles(string container)
         {
             Directory.CreateDirectory(container);
-            File.WriteAllText(container + "\\file1.txt", "Hello1");
-            File.WriteAllText(container + "\\file2.doc", "some bites");
-            File.WriteAllText(container + "\\file3.log", "Debug[] blablalb");
-            File.WriteAllText(container + "\\file4.pdf", "some bites");
+            File.WriteAllText(Path.Join(container, "file1.txt"), "Hello1");
+            File.WriteAllText(Path.Join(container, "file2.doc"), "some bites");
+            File.WriteAllText(Path.Join(container, "file3.log"), "Debug[] blablalb");
+            File.WriteAllText(Path.Join(container, "file4.pdf"), "some bites");
         }
 
         [TestCleanup]
@@ -48,7 +48,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 
             provider.Save("container", "test123.txt", new MemoryStream(500));
 
-            Assert.IsTrue(File.Exists("container\\test123.txt"));
+            Assert.IsTrue(File.Exists("container/test123.txt"));
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             
             provider.Save("container", "test123.txt", new MemoryStream(Encoding.UTF8.GetBytes("HelloWorld")));
 
-            var fileContent = File.ReadAllText("container\\test123.txt", Encoding.UTF8);
+            var fileContent = File.ReadAllText("container/test123.txt", Encoding.UTF8);
             Assert.AreEqual("HelloWorld", fileContent);
         }
 
@@ -70,7 +70,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
             provider.Save("container", "test123.txt", new MemoryStream(Encoding.UTF8.GetBytes("HelloWorld")));
             provider.Save("container", "test123.txt", new MemoryStream(Encoding.UTF8.GetBytes("NewValue")));
 
-            var fileContent = File.ReadAllText("container\\test123.txt", Encoding.UTF8);
+            var fileContent = File.ReadAllText("container/test123.txt", Encoding.UTF8);
             Assert.AreEqual("NewValue", fileContent);
         }
 
