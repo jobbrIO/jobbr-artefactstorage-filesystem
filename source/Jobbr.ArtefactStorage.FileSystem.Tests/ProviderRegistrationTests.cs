@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Jobbr.ComponentModel.ArtefactStorage;
-using Jobbr.ComponentModel.JobStorage;
-using Jobbr.ComponentModel.Registration;
+﻿using Jobbr.ComponentModel.Registration;
 using Jobbr.Server;
 using Jobbr.Server.Builder;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace Jobbr.ArtefactStorage.FileSystem.Tests
 {
@@ -16,7 +15,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_CanBeStarted()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -34,21 +33,21 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Jobbr_WithRegisteredFileStorage_StorageProviderHasCorrectType()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
                 config.DataDirectory = Directory.GetCurrentDirectory();
             });
 
-            builder.Register<IJobbrComponent>(typeof(DirectServiceAccessComponent));
+            builder.RegisterForCollection<IJobbrComponent>(typeof(DirectServiceAccessComponent));
 
             using (var server = builder.Create())
             {
                 server.Start();
 
-                Assert.IsNotNull(DirectServiceAccessComponent.Instance.artefactStorageProvider);
-                Assert.AreEqual(typeof(FileSystemArtefactsStorageProvider), DirectServiceAccessComponent.Instance.artefactStorageProvider.GetType());
+                Assert.IsNotNull(DirectServiceAccessComponent.Instance.ArtefactStorageProvider);
+                Assert.AreEqual(typeof(FileSystemArtefactsStorageProvider), DirectServiceAccessComponent.Instance.ArtefactStorageProvider.GetType());
             }
         }
 
@@ -56,7 +55,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithEmptyDataDirectoy_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -73,7 +72,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidDrive_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
@@ -81,7 +80,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 
             builder.AddFileSystemArtefactStorage(config =>
             {
-                config.DataDirectory = invalidDrives.First().ToString() + ":\\test";
+                config.DataDirectory = invalidDrives.First() + ":\\test";
             });
 
             using (var server = builder.Create())
@@ -94,7 +93,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInvalidPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -110,7 +109,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [TestMethod]
         public void Configuration_WithPossibleUncPath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             builder.AddFileSystemArtefactStorage(config =>
             {
@@ -128,7 +127,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
         [ExpectedException(typeof(Exception))]
         public void Configuration_WithInaccessablePath_ThrowsExceptionOnJobStart()
         {
-            var builder = new JobbrBuilder();
+            var builder = new JobbrBuilder(NullLoggerFactory.Instance);
 
             var possibleDriveLetters = Enumerable.Range(65, 91).Select(i => (char)i);
             var usedDriveLetters = DriveInfo.GetDrives().Select(d => d.Name[0]);
@@ -136,7 +135,7 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
 
             builder.AddFileSystemArtefactStorage(config =>
             {
-                config.DataDirectory = invalidDrives.First().ToString() + ":\\test";
+                config.DataDirectory = invalidDrives.First() + ":\\test";
             });
 
             using (var server = builder.Create())
@@ -144,23 +143,5 @@ namespace Jobbr.ArtefactStorage.FileSystem.Tests
                 server.Start();
             }
         }
-    }
-
-    public class DirectServiceAccessComponent : IJobbrComponent
-    {
-        public static DirectServiceAccessComponent Instance;
-        public readonly IArtefactsStorageProvider artefactStorageProvider;
-
-        public DirectServiceAccessComponent(IArtefactsStorageProvider artefactsStorageProvider)
-        {
-            Instance = this;
-            this.artefactStorageProvider = artefactsStorageProvider;
-        }
-
-        public void Dispose() { }
-
-        public void Start() { }
-
-        public void Stop() { }
     }
 }
