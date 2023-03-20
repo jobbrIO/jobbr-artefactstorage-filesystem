@@ -15,7 +15,7 @@ namespace Jobbr.ArtefactStorage.FileSystem
             builder.Add<FileSystemArtefactStorageConfiguration>(defaultConfig);
 
             builder.Register<IArtefactsStorageProvider>(typeof(FileSystemArtefactsStorageProvider));
-            builder.Register<IConfigurationValidator>(typeof(ConfigurationValidator));
+            builder.RegisterForCollection<IConfigurationValidator>(typeof(ConfigurationValidator));
         }
     }
 }

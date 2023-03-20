@@ -18,7 +18,7 @@
     <PreBuildEvent />
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Jobbr.ComponentModel.ArtefactStorage" Version="1.1.1" />
-    <PackageReference Include="Jobbr.ComponentModel.Registration" Version="1.0.3" />
+    <PackageReference Include="Jobbr.ComponentModel.ArtefactStorage" Version="3.0.0" />
+    <PackageReference Include="Jobbr.ComponentModel.Registration" Version="3.0.0" />
   </ItemGroup>
 </Project>
